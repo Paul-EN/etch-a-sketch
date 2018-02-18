@@ -1,0 +1,25 @@
+#header {
+  margin-top: 30px;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.main-grid {
+  grid-column: 2 / 3;
+  justify-self: center;
+}
+
+.box {
+  height: 20px;
+  width: 20px;
+  background-color: blue;
+  margin: 1px;
+  float: left;
+}
+
+.clear {
+  clear: both;
+}

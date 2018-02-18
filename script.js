@@ -1,4 +1,4 @@
-window.onload = function etchSketch() {
+window.onload = function etchASketch() {
 
   function setTitle(name) {
     let titleCont = document.createElement('title');
@@ -6,39 +6,60 @@ window.onload = function etchSketch() {
     document.head.appendChild(titleCont);
   }
 
-  function createContainer(name) {
+  function createContainer(name, parent) {
+    let container = document.querySelector(`${parent}`)
     let divCont = document.createElement('div');
     divCont.setAttribute('id', `${name}`);
-    divCont.setAttribute('style', 'background-color: green');
-    document.body.appendChild(divCont);
+    container.appendChild(divCont);
   }
 
-  function createBox(parent, name) {
-    let container = document.querySelector(`#${parent}`);
+  function createSubContainer(name, parent) {
+    let container = document.querySelector(`${parent}`)
+    let divCont = document.createElement('div');
+    divCont.setAttribute('class', `${name}`);
+    container.appendChild(divCont);
+  }
+
+  function createBox(name, parent) {
+    let container = document.querySelector(`${parent}`);
     let box = document.createElement('div');
-    box.classList.add('name');
-    box.setAttribute('style', 'height: 20px; width: 20px; background-color: blue; margin: 1px; float: left');
+    box.classList.add(`${name}`);
     container.appendChild(box);
   }
 
   function clearBox(parent) {
-    let container = document.querySelector(`#${parent}`);
+    let container = document.querySelector(`${parent}`);
     let box = document.createElement('div');
     box.classList.add('clear')
-    box.setAttribute('style', 'clear: both');
     container.appendChild(box);
   }
 
-  function createGrid(parent, name, width, height) {
+  function createGrid(name, parent, width, height) {
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
-        createBox(parent, name);
+        createBox(name, parent);
       }
       clearBox(parent);
     }
   }
 
+  function changeColor() {
+    function addEvent(boxHover) {
+      boxHover.addEventListener('mouseover', function() {
+        boxHover.style.backgroundColor = 'red';
+      });
+    }
+
+    let boxes = document.getElementsByClassName('box');
+    for (let a = 0; a < boxes.length; a++) {
+      addEvent(boxes[a]);
+    }
+  }
+
   setTitle('Etch-a-Sketch')
-  createContainer('main-grid');
-  createGrid('main-grid', 'box', 16, 16)
+  createContainer('header', 'body');
+  createContainer('grid-container', 'body');
+  createSubContainer('main-grid', '#grid-container')
+  createGrid('box', '.main-grid', 16, 16);
+  changeColor();
 }
